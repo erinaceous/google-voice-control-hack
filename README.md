@@ -24,6 +24,11 @@ External Dependencies:
 To use:
     python control.py -v
 
+This uses Version 1 of Google's Voice Recognition API (which isn't public, just
+reverse-engineered, and they don't seem to care about hackers using it to do
+cool things). Version 2 exists and is better (allows streaming of audio to the
+server and getting hypotheses back in realtime) but too much effort for moi :p
+
 The script will start running and will be listening for loud noises. As soon as
 it hears ANY loud noise through your default system mic, it triggers recording.
 After soon as the recording gets quiet again, it stops recording, converts the
