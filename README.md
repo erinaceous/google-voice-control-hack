@@ -22,7 +22,7 @@ External Dependencies:
   recognize what I'm saying...
 
 To use:
-    python control.py -v
+    `python control.py -v`
 
 This uses Version 1 of Google's Voice Recognition API (which isn't public, just
 reverse-engineered, and they don't seem to care about hackers using it to do
