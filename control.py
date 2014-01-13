@@ -23,6 +23,7 @@ import time
 import locale
 import difflib
 import argparse
+import readline
 import subprocess
 import http.client
 
@@ -127,9 +128,16 @@ def respond(config, utterance, verbose=False):
     words_orig = words.lower()
     hypothesis = utterance_orig.replace(words_orig, '', 1)
     cmd = command.format(string=hypothesis, pid=str(os.getpid()))
-    if cmd.endswith('&') or cmd.endswith('exit') or cmd.endswith(';'):
-        return cmd
-    return cmd + ' &'
+    return cmd
+
+
+def help(config):
+    print('Available commands:')
+    for command in config['commands'].keys():
+        if '{string}' in config['commands'][command]:
+            print(' ', command, '[...]')
+        else:
+            print(' ', command)
 
 
 def main():
@@ -167,7 +175,10 @@ def main():
                 command = respond(config, hypothesis['utterance'],
                                   verbose=args.verbose)
                 if command:
-                    subprocess.call(command, shell=True)
+                    if command.startswith('!'):
+                        subprocess.call(command[1:], shell=True)
+                    else:
+                        eval(command)
                     time.sleep(0.2)
                     print()
 
